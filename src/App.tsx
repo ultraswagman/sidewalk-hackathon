@@ -100,7 +100,7 @@ function App() {
             <p id="concern-desc" className="field-hint">
               Write a few words about what is on your mind today.
             </p>
-            <div className="suggestion-tags" aria-label="Quick suggestion tags">
+            <div className="suggestion-tags" role="group" aria-label="Quick suggestion tags">
               {suggestionTags.map((tag) => (
                 <button
                   key={tag}
@@ -127,7 +127,7 @@ function App() {
                 maxLength={500}
                 placeholder="Example: rent stress, school pressure, needing to get out of the apartment"
                 rows={5}
-                aria-describedby={`concern-desc ${formMessage ? "form-message" : ""}`}
+                aria-describedby={["concern-desc", formMessage ? "form-message" : ""].filter(Boolean).join(" ")}
               />
               <span className={`char-count ${concern.length >= 450 ? "warn" : ""}`}>
                 {concern.length}/500

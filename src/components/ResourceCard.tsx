@@ -1,3 +1,4 @@
+import { ShieldAlert, MapPinned, ArrowUpRight } from "lucide-react";
 import type { Resource } from "../lib/types";
 
 type ResourceCardProps = {
@@ -9,15 +10,24 @@ type ResourceCardProps = {
 export function ResourceCard({ label, resource, urgent = false }: ResourceCardProps) {
   return (
     <article className={urgent ? "resource-card urgent" : "resource-card"}>
-      <p className="card-label">{label}</p>
+      <div className="card-header-row">
+        <p className="card-label">{label}</p>
+        {urgent ? (
+          <ShieldAlert className="urgent-icon" size={16} aria-hidden="true" />
+        ) : (
+          <MapPinned className="place-icon" size={16} aria-hidden="true" />
+        )}
+      </div>
       <h3>{resource.name}</h3>
       <p>{resource.description}</p>
       <p className="card-action">{resource.action}</p>
       {resource.url ? (
-        <a href={resource.url} target="_blank" rel="noreferrer">
-          Open official page
+        <a href={resource.url} target="_blank" rel="noreferrer" className="card-link">
+          <span>Open official page</span>
+          <ArrowUpRight size={14} aria-hidden="true" />
         </a>
       ) : null}
     </article>
   );
 }
+

@@ -460,25 +460,58 @@ button:active {
   gap: 0.85rem;
 }
 
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.card-header-row .card-label {
+  margin-bottom: 0;
+}
+
+.urgent-icon {
+  color: #e35d4f;
+}
+
+.place-icon {
+  color: #055f69;
+}
+
 .community-card,
 .resource-card {
-  border: 1px solid rgba(24, 32, 31, 0.18);
-  border-left: 7px solid #055f69;
-  border-radius: 8px;
-  padding: clamp(0.95rem, 1.45vw, 1.15rem);
-  background: #f7f4eb;
+  border: 1px solid rgba(24, 32, 31, 0.12);
+  border-left: 6px solid #055f69;
+  border-radius: 12px;
+  padding: clamp(0.95rem, 1.45vw, 1.25rem);
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(24, 32, 31, 0.03);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .community-card {
   background:
-    linear-gradient(90deg, rgba(5, 95, 105, 0.08), transparent 48%),
-    #f7f4eb;
+    linear-gradient(90deg, rgba(5, 95, 105, 0.03), transparent 60%),
+    #ffffff;
+}
+
+.community-card:hover,
+.resource-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(24, 32, 31, 0.08);
+  border-color: rgba(5, 95, 105, 0.25);
 }
 
 .resource-card.urgent {
-  border-left-color: #bf4135;
-  background: linear-gradient(180deg, #fff4ef, #fffaf7);
-  box-shadow: 0 14px 34px rgba(191, 65, 53, 0.12);
+  border-left-color: #e35d4f;
+  background: linear-gradient(180deg, #fff7f6, #ffffff);
+  box-shadow: 0 4px 18px rgba(191, 65, 53, 0.06);
+}
+
+.resource-card.urgent:hover {
+  border-color: rgba(191, 65, 53, 0.25);
+  box-shadow: 0 12px 28px rgba(191, 65, 53, 0.12);
 }
 
 .card-label {
@@ -506,12 +539,37 @@ dl div {
 }
 
 dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   color: #475552;
-  font-weight: 780;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+dt svg {
+  color: #055f69;
+  opacity: 0.85;
 }
 
 dd {
-  margin: 0.15rem 0 0;
+  font-weight: 500;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.card-link:hover {
+  color: #03424a;
+  text-decoration: underline;
 }
 
 .demo-note,

@@ -1,3 +1,4 @@
+import { MapPin, Clock, Compass } from "lucide-react";
 import type { PeerPost } from "../lib/types";
 
 type CommunityCardProps = {
@@ -12,15 +13,24 @@ export function CommunityCard({ post }: CommunityCardProps) {
       <p>{post.description}</p>
       <dl>
         <div>
-          <dt>Borough</dt>
+          <dt>
+            <MapPin size={14} aria-hidden="true" />
+            <span>Borough</span>
+          </dt>
           <dd>{post.borough}</dd>
         </div>
         <div>
-          <dt>Place hint</dt>
+          <dt>
+            <Compass size={14} aria-hidden="true" />
+            <span>Place hint</span>
+          </dt>
           <dd>{post.placeHint}</dd>
         </div>
         <div>
-          <dt>Window</dt>
+          <dt>
+            <Clock size={14} aria-hidden="true" />
+            <span>Window</span>
+          </dt>
           <dd>{post.timeWindow}</dd>
         </div>
       </dl>
@@ -28,3 +38,4 @@ export function CommunityCard({ post }: CommunityCardProps) {
     </article>
   );
 }
+
