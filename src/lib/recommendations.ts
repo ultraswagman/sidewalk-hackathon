@@ -1,6 +1,6 @@
 import {
   crisisResources,
-  officialResources,
+  officialResourceBuckets,
   peerPosts,
   placeResets,
 } from "../data/resources";
@@ -27,7 +27,7 @@ export function getRecommendations(checkIn: CheckIn): RecommendationResult {
     return {
       mode: "crisis",
       urgentResources: crisisResources,
-      officialResources,
+      officialResourceBuckets,
       communitySuggestions: [],
       placeReset: null,
     };
@@ -44,7 +44,7 @@ export function getRecommendations(checkIn: CheckIn): RecommendationResult {
   return {
     mode: "support",
     urgentResources: [],
-    officialResources,
+    officialResourceBuckets,
     communitySuggestions: [exactMatch ?? categoryMatch ?? peerPosts[0]],
     placeReset: placeResets[checkIn.borough],
   };

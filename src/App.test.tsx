@@ -45,7 +45,7 @@ describe("App", () => {
     expect(screen.getByRole("heading", { name: "Your next step" })).toBeInTheDocument();
     expect(screen.getByText("Community step")).toBeInTheDocument();
     expect(screen.getByText("Place reset")).toBeInTheDocument();
-    expect(screen.getByText("Official support")).toBeInTheDocument();
+    expect(screen.getByText("Immediate support")).toBeInTheDocument();
     expect(screen.getByText("Rent-stress walk before the evening rush")).toBeInTheDocument();
   });
 

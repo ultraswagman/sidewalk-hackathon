@@ -174,8 +174,8 @@ function App() {
               <CommunityCard post={result.communitySuggestions[0]} />
               <ResourceCard label="Place reset" resource={result.placeReset} />
               <ResourceCard
-                label="Official support"
-                resource={result.officialResources[0]}
+                label={result.officialResourceBuckets[0]?.name ?? "Official support"}
+                resource={result.officialResourceBuckets[0].resources[0]}
               />
             </div>
           ) : null}

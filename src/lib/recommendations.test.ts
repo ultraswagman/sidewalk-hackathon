@@ -14,7 +14,7 @@ describe("getRecommendations", () => {
     expect(result.communitySuggestions).toHaveLength(0);
   });
 
-  it("returns community, place, and official resources for a non-crisis check-in", () => {
+  it("returns community, place, and official resource buckets for a non-crisis check-in", () => {
     const result = getRecommendations({
       concern: "Rent stress is making the day feel impossible",
       supportType: "Finance",
@@ -24,7 +24,8 @@ describe("getRecommendations", () => {
     expect(result.mode).toBe("support");
     expect(result.communitySuggestions[0]?.category).toBe("Finance");
     expect(result.placeReset?.borough).toBe("Queens");
-    expect(result.officialResources[0]?.name).toBe("NYC 988");
+    expect(result.officialResourceBuckets[0]?.name).toBe("Immediate support");
+    expect(result.officialResourceBuckets[0]?.resources[0]?.name).toBe("NYC 988");
   });
 
   it("treats immediate danger as a crisis even without self-harm wording", () => {

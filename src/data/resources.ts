@@ -1,4 +1,10 @@
-import type { Borough, PeerPost, PlaceReset, Resource } from "../lib/types";
+import type {
+  Borough,
+  OfficialResourceBucket,
+  PeerPost,
+  PlaceReset,
+  Resource,
+} from "../lib/types";
 
 export const crisisResources: Resource[] = [
   {
@@ -19,15 +25,22 @@ export const crisisResources: Resource[] = [
   },
 ];
 
-export const officialResources: Resource[] = [
+export const officialResourceBuckets: OfficialResourceBucket[] = [
   {
-    id: "nyc-988-info",
-    name: "NYC 988",
-    description:
-      "Mental health and substance use support, information, and referrals for NYC residents.",
-    action: "Save the number or open the official page.",
-    url: "https://www.nyc.gov/site/doh/health/health-topics/988.page",
-    kind: "official",
+    id: "immediate-support",
+    name: "Immediate support",
+    description: "Official NYC support options for urgent or high-stress moments.",
+    resources: [
+      {
+        id: "nyc-988-info",
+        name: "NYC 988",
+        description:
+          "Mental health and substance use support, information, and referrals for NYC residents.",
+        action: "Save the number or open the official page.",
+        url: "https://www.nyc.gov/site/doh/health/health-topics/988.page",
+        kind: "official",
+      },
+    ],
   },
 ];
 

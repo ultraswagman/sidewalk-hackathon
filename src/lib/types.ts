@@ -39,6 +39,13 @@ export type Resource = {
   kind: "crisis" | "official" | "place";
 };
 
+export type OfficialResourceBucket = {
+  id: string;
+  name: string;
+  description: string;
+  resources: Resource[];
+};
+
 export type PlaceReset = Resource & {
   borough: Borough;
 };
@@ -47,14 +54,14 @@ export type RecommendationResult =
   | {
       mode: "crisis";
       urgentResources: Resource[];
-      officialResources: Resource[];
+      officialResourceBuckets: OfficialResourceBucket[];
       communitySuggestions: [];
       placeReset: null;
     }
   | {
       mode: "support";
       urgentResources: [];
-      officialResources: Resource[];
+      officialResourceBuckets: OfficialResourceBucket[];
       communitySuggestions: PeerPost[];
       placeReset: PlaceReset;
     };
