@@ -60,4 +60,15 @@ describe("App", () => {
     );
     expect(screen.queryByText("Community step")).not.toBeInTheDocument();
   });
+
+  it("populates the concern when clicking a suggestion tag", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const tagButton = screen.getByRole("button", { name: "Rent stress" });
+    await user.click(tagButton);
+
+    expect(screen.getByLabelText("What are you dealing with?")).toHaveValue("Rent stress");
+  });
 });
+

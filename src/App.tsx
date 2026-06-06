@@ -23,6 +23,14 @@ const boroughs: Borough[] = [
   "Staten Island",
 ];
 
+const suggestionTags = [
+  "Rent stress",
+  "School pressure",
+  "Needing a walk",
+  "Job hunting",
+  "Just need to vent",
+];
+
 function App() {
   const [concern, setConcern] = useState("");
   const [supportType, setSupportType] = useState<SupportCategory>("Walk");
@@ -89,13 +97,42 @@ function App() {
           <h2 id="checkin-title">What is the closest version of today?</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="concern">What are you dealing with?</label>
-            <textarea
-              id="concern"
-              value={concern}
-              onChange={(event) => setConcern(event.target.value)}
-              placeholder="Example: rent stress, school pressure, needing to get out of the apartment"
-              rows={5}
-            />
+            <p id="concern-desc" className="field-hint">
+              Write a few words about what is on your mind today.
+            </p>
+            <div className="suggestion-tags" aria-label="Quick suggestion tags">
+              {suggestionTags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => {
+                    setConcern(tag);
+                    setFormMessage("");
+                  }}
+                  className="tag-button"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+
+            <div className="textarea-container">
+              <textarea
+                id="concern"
+                value={concern}
+                onChange={(event) => {
+                  setConcern(event.target.value);
+                  if (formMessage) setFormMessage("");
+                }}
+                maxLength={500}
+                placeholder="Example: rent stress, school pressure, needing to get out of the apartment"
+                rows={5}
+                aria-describedby={`concern-desc ${formMessage ? "form-message" : ""}`}
+              />
+              <span className={`char-count ${concern.length >= 450 ? "warn" : ""}`}>
+                {concern.length}/500
+              </span>
+            </div>
 
             <label htmlFor="supportType">What kind of support sounds useful?</label>
             <select
@@ -127,7 +164,7 @@ function App() {
 
             <button type="submit">Find a next step</button>
             {formMessage ? (
-              <p className="form-message" role="status">
+              <p id="form-message" className="form-message" role="status">
                 {formMessage}
               </p>
             ) : null}

@@ -62,6 +62,7 @@ a {
 :focus-visible {
   outline: 2px solid #055f69;
   outline-offset: 3px;
+  box-shadow: 0 0 0 3px #fffdf7, 0 0 0 5px #055f69;
 }
 
 .app-shell {
@@ -126,13 +127,17 @@ a {
   gap: 0.2rem;
 }
 
-.site-nav nav a {
+.site-nav nav a,
+.crisis-link {
   min-height: 2.5rem;
   border-radius: 999px;
   padding: 0.65rem 0.9rem;
-  color: #475552;
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-nav nav a {
+  color: #475552;
 }
 
 .site-nav nav a:hover {
@@ -145,11 +150,6 @@ a {
   background: #e35d4f;
   color: #fffdf7;
   box-shadow: 0 4px 14px rgba(191, 65, 53, 0.2);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  min-height: 2.5rem;
-  border-radius: 999px;
-  padding: 0.65rem 0.9rem;
-  text-decoration: none;
 }
 
 .crisis-link:hover {
@@ -325,10 +325,73 @@ button {
   cursor: pointer;
   font-weight: 880;
   box-shadow: 0 10px 22px rgba(191, 65, 53, 0.18);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button:hover {
   background: #bf4135;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.field-hint {
+  font-size: 0.88rem;
+  color: #475552;
+  margin-top: -0.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.suggestion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tag-button {
+  background: rgba(5, 95, 105, 0.06);
+  color: #055f69;
+  border: 1px solid rgba(5, 95, 105, 0.12);
+  border-radius: 99px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none;
+  min-height: auto;
+  transition: all 0.2s ease;
+}
+
+.tag-button:hover {
+  background: #055f69;
+  color: #fffdf7;
+  border-color: #055f69;
+}
+
+.tag-button:active {
+  transform: scale(0.96);
+}
+
+.textarea-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: relative;
+}
+
+.char-count {
+  align-self: flex-end;
+  font-size: 0.8rem;
+  color: #707c79;
+  font-weight: 700;
+}
+
+.char-count.warn {
+  color: #bf4135;
+  font-weight: 900;
 }
 
 .form-message {
