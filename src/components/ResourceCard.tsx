@@ -22,7 +22,7 @@ export function ResourceCard({ label, resource, urgent = false }: ResourceCardPr
       <p>{resource.description}</p>
       <p className="card-action">{resource.action}</p>
       {resource.url ? (
-        <a href={resource.url} target="_blank" rel="noreferrer" className="card-link">
+        <a href={resource.url} target="_blank" rel="noreferrer" className="card-link" aria-label="Open official page (opens in a new tab)">
           <span>Open official page</span>
           <ArrowUpRight size={14} aria-hidden="true" />
         </a>
