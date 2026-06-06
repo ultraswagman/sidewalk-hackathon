@@ -1,35 +1,10 @@
 import { FormEvent, useState } from "react";
-import { Footprints, LifeBuoy, MapPinned, ShieldAlert } from "lucide-react";
-import { CommunityCard } from "./components/CommunityCard";
-import { ResourceCard } from "./components/ResourceCard";
+import { Footprints, LifeBuoy, ShieldAlert } from "lucide-react";
+import { CheckInForm } from "./features/check-in/CheckInForm";
+import { ResultsPanel } from "./features/recommendations/ResultsPanel";
 import { getRecommendations } from "./lib/recommendations";
 import type { Borough, RecommendationResult, SupportCategory } from "./lib/types";
 import "./styles.css";
-
-const supportTypes: SupportCategory[] = [
-  "Walk",
-  "School",
-  "Finance",
-  "Vent",
-  "Work",
-  "Community",
-];
-
-const boroughs: Borough[] = [
-  "Manhattan",
-  "Brooklyn",
-  "Queens",
-  "Bronx",
-  "Staten Island",
-];
-
-const suggestionTags = [
-  "Rent stress",
-  "School pressure",
-  "Needing a walk",
-  "Job hunting",
-  "Just need to vent",
-];
 
 function App() {
   const [concern, setConcern] = useState("");
@@ -43,11 +18,22 @@ function App() {
     if (!concern.trim()) {
       setResult(null);
       setFormMessage("Tell us a little about today first.");
+      document.getElementById("concern")?.focus();
       return;
     }
 
     setFormMessage("");
     setResult(getRecommendations({ concern, supportType, borough }));
+  }
+
+  function handleConcernChange(nextConcern: string) {
+    setConcern(nextConcern);
+    if (formMessage) setFormMessage("");
+  }
+
+  function handleSuggestionSelect(suggestion: string) {
+    setConcern(suggestion);
+    setFormMessage("");
   }
 
   return (
@@ -92,131 +78,18 @@ function App() {
       </section>
 
       <div className="workspace">
-        <section className="checkin-panel" id="check-in" aria-labelledby="checkin-title">
-          <p className="eyebrow">Check in</p>
-          <h2 id="checkin-title">What is the closest version of today?</h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="concern">What are you dealing with?</label>
-            <p id="concern-desc" className="field-hint">
-              Write a few words about what is on your mind today.
-            </p>
-            <div className="suggestion-tags" role="group" aria-label="Quick suggestion tags">
-              {suggestionTags.map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  onClick={() => {
-                    setConcern(tag);
-                    setFormMessage("");
-                  }}
-                  className="tag-button"
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-
-            <div className="textarea-container">
-              <textarea
-                id="concern"
-                value={concern}
-                onChange={(event) => {
-                  setConcern(event.target.value);
-                  if (formMessage) setFormMessage("");
-                }}
-                maxLength={500}
-                placeholder="Example: rent stress, school pressure, needing to get out of the apartment"
-                rows={5}
-                aria-describedby={["concern-desc", formMessage ? "form-message" : ""].filter(Boolean).join(" ")}
-              />
-              <span className={`char-count ${concern.length >= 450 ? "warn" : ""}`}>
-                {concern.length}/500
-              </span>
-            </div>
-
-            <label htmlFor="supportType">What kind of support sounds useful?</label>
-            <select
-              id="supportType"
-              value={supportType}
-              onChange={(event) =>
-                setSupportType(event.target.value as SupportCategory)
-              }
-            >
-              {supportTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-
-            <label htmlFor="borough">Where in NYC are you, roughly?</label>
-            <select
-              id="borough"
-              value={borough}
-              onChange={(event) => setBorough(event.target.value as Borough)}
-            >
-              {boroughs.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-
-            <button type="submit">Find a next step</button>
-            {formMessage ? (
-              <p id="form-message" className="form-message" role="status">
-                {formMessage}
-              </p>
-            ) : null}
-          </form>
-        </section>
-
-        <section className="results-panel" id="results" aria-live="polite" aria-labelledby="results-title">
-          <div className="section-heading">
-            <p className="eyebrow">Recommendation</p>
-            <h2 id="results-title">
-              {result?.mode === "crisis" ? "Use immediate support now" : "Your next step"}
-            </h2>
-          </div>
-
-          {!result ? (
-            <div className="empty-state">
-              <MapPinned aria-hidden="true" />
-              <div>
-                <p>Your suggestions will show up here.</p>
-                <ul>
-                  <li>A low-pressure community step</li>
-                  <li>A public place reset</li>
-                  <li>An official NYC support option</li>
-                </ul>
-              </div>
-            </div>
-          ) : null}
-
-          {result?.mode === "crisis" ? (
-            <div className="result-grid">
-              {result.urgentResources.map((resource) => (
-                <ResourceCard
-                  key={resource.id}
-                  label="Immediate support"
-                  resource={resource}
-                  urgent
-                />
-              ))}
-            </div>
-          ) : null}
-
-          {result?.mode === "support" ? (
-            <div className="result-grid">
-              <CommunityCard post={result.communitySuggestions[0]} />
-              <ResourceCard label="Place reset" resource={result.placeReset} />
-              <ResourceCard
-                label={result.officialResourceBuckets[0]?.name ?? "Official support"}
-                resource={result.officialResourceBuckets[0].resources[0]}
-              />
-            </div>
-          ) : null}
-        </section>
+        <CheckInForm
+          borough={borough}
+          concern={concern}
+          formMessage={formMessage}
+          onBoroughChange={setBorough}
+          onConcernChange={handleConcernChange}
+          onSubmit={handleSubmit}
+          onSuggestionSelect={handleSuggestionSelect}
+          onSupportTypeChange={setSupportType}
+          supportType={supportType}
+        />
+        <ResultsPanel result={result} />
       </div>
 
       <aside className="footer-note" id="pilot-note" aria-label="Prototype note">

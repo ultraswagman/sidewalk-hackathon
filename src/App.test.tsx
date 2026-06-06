@@ -58,6 +58,7 @@ describe("App", () => {
     expect(screen.getByRole("status")).toHaveTextContent(
       "Tell us a little about today first.",
     );
+    expect(screen.getByLabelText("What are you dealing with?")).toHaveFocus();
     expect(screen.queryByText("Community step")).not.toBeInTheDocument();
   });
 
@@ -71,4 +72,3 @@ describe("App", () => {
     expect(screen.getByLabelText("What are you dealing with?")).toHaveValue("Rent stress");
   });
 });
-
